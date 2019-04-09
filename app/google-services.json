@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "660173686721",
+    "firebase_url": "https://assignmentmanagement-7efaa.firebaseio.com",
+    "project_id": "assignmentmanagement-7efaa",
+    "storage_bucket": "assignmentmanagement-7efaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660173686721:android:3631b118a9b23d7a",
+        "android_client_info": {
+          "package_name": "com.example.roshi.backup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660173686721-45ejnob5e6k21406mn6qae96urhr49p0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.roshi.backup",
+            "certificate_hash": "7edefbb37127b76bda136edbdba92fa958e6869d"
+          }
+        },
+        {
+          "client_id": "660173686721-l0voa4h4o01v0andrgseq65jui57sjle.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqj6zQzwW2pk3XDW3J_PYPWedbCJ0O6mQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660173686721-l0voa4h4o01v0andrgseq65jui57sjle.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
