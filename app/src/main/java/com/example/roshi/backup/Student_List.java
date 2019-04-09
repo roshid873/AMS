@@ -4,9 +4,7 @@ import java.io.Serializable;
 
 public class Student_List implements Serializable {
 
-
     private String stName,stId;
-
 
     public Student_List(){
 

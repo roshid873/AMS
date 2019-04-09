@@ -92,13 +92,9 @@ public class AddStudentActivity extends AppCompatActivity {
         btnFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MaterialFilePicker()
-                        .withActivity(AddStudentActivity.this)
-                        .withRequestCode(1)
-                        .withFilter(Pattern.compile(".*\\.txt$")) // Filtering files and directories by file name using regexp
-                        .withFilterDirectories(true) // Set directories filterable (false by default)
-                        .withHiddenFiles(true) // Show hidden files and folders
-                        .start();;
+                Intent intent = new Intent(AddStudentActivity.this,AddFileActivity.class);
+                intent.putExtra("course",course);
+                startActivity(intent);
 
             }
         });
