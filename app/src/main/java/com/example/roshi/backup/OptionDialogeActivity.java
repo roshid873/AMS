@@ -1,7 +1,6 @@
 package com.example.roshi.backup;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,16 +15,16 @@ public class OptionDialogeActivity extends AppCompatActivity {
 
     Course course;
     List<Course> courseList;
-    Student_List studentList;
+    Student studentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option_dialoge);
         course = new Course();
-        studentList = new Student_List();
+        studentList = new Student();
         course = (Course) getIntent().getSerializableExtra("course");
-        studentList = (Student_List) getIntent().getSerializableExtra("stId");
+        studentList = (Student) getIntent().getSerializableExtra("stId");
 
 
         btnAddStudent = findViewById(R.id.btAddStudent);

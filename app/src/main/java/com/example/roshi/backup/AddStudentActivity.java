@@ -27,11 +27,11 @@ public class AddStudentActivity extends AppCompatActivity {
     TextView tvStName,tvStId;
     ListView lvStList;
     DatabaseReference databaseStudents;
-    List<Student_List> Student_List_inflater;
+    List<Student> Student_inflater;
 
     Course course;
     List<com.example.roshi.backup.Course> courseList;
-    com.example.roshi.backup.Student_List studentList;
+    com.example.roshi.backup.Student studentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +46,11 @@ public class AddStudentActivity extends AppCompatActivity {
 
         //pass data
         course = new com.example.roshi.backup.Course();
-        studentList = new com.example.roshi.backup.Student_List();
+        studentList = new com.example.roshi.backup.Student();
         course = (com.example.roshi.backup.Course) getIntent().getSerializableExtra("course");
 
 
-        Student_List_inflater = new ArrayList<>();
+        Student_inflater = new ArrayList<>();
         courseList = new ArrayList<>();
 
         lvStList=findViewById(R.id.ad_st_lv);
@@ -69,13 +69,13 @@ public class AddStudentActivity extends AppCompatActivity {
         databaseStudents.child(course.getCourseName()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Student_List_inflater.clear();
+                Student_inflater.clear();
 
                 for(DataSnapshot studentSnapshot : dataSnapshot.getChildren()){
-                    com.example.roshi.backup.Student_List student_list = studentSnapshot.getValue(com.example.roshi.backup.Student_List.class);
-                    Student_List_inflater.add(student_list);
+                    com.example.roshi.backup.Student Student = studentSnapshot.getValue(com.example.roshi.backup.Student.class);
+                    Student_inflater.add(Student);
 
-                    com.example.roshi.backup.Student_List_inflater adapter = new com.example.roshi.backup.Student_List_inflater(AddStudentActivity.this, Student_List_inflater);
+                    com.example.roshi.backup.Student_inflater adapter = new com.example.roshi.backup.Student_inflater(AddStudentActivity.this, Student_inflater);
                     lvStList.setAdapter(adapter);
 
                 }

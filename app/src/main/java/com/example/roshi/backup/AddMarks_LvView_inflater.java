@@ -17,15 +17,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class AddMarks_LvView_inflater extends ArrayAdapter<Student_List> {
+public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
 
 
     private Activity context;
-    private List<Student_List>marksLists;
-    Student_List studentList;
+    private List<Student>marksLists;
+    Student studentList;
     DatabaseReference databaseStudents;
 
-    public AddMarks_LvView_inflater(Activity context, List<Student_List> marksLists){
+    public AddMarks_LvView_inflater(Activity context, List<Student> marksLists){
 
        super(context, R.layout.add_marks_list, marksLists);
         this.context = context;
@@ -46,7 +46,7 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student_List> {
         TextView stId = stMarksViewItem.findViewById(R.id.tvId);
         EditText stMarks= stMarksViewItem.findViewById(R.id.etmarks);
 
-        final Student_List studentMarksList = marksLists.get(position);
+        final Student studentMarksList = marksLists.get(position);
 
 
         stId.setText(studentMarksList.getStId());
@@ -75,7 +75,7 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student_List> {
         return stMarksViewItem;
     }
 
-    public List<Student_List> getMarksLists() {
+    public List<Student> getMarksLists() {
         return marksLists;
     }
 }

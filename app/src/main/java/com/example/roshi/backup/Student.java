@@ -2,7 +2,7 @@ package com.example.roshi.backup;
 
 import java.io.Serializable;
 
-public class Student_List implements Serializable {
+public class Student implements Serializable {
 
     private String stName,stId;
     private int providedMark;
@@ -15,11 +15,19 @@ public class Student_List implements Serializable {
         this.providedMark = providedMark;
     }
 
-    public Student_List(){
+    public void setStName(String stName) {
+        this.stName = stName;
+    }
+
+    public void setStId(String stId) {
+        this.stId = stId;
+    }
+
+    public Student(){
 
     }
 
-    public Student_List(String stName, String stId) {
+    public Student(String stName, String stId) {
         this.stName = stName;
         this.stId = stId;
     }

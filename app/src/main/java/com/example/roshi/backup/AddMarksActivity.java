@@ -44,7 +44,7 @@ public class AddMarksActivity extends AppCompatActivity {
 
     AddMarks_LvView addMarksLvView;
     FirebaseDatabase database;
-    List<Student_List> studentInformasion;
+    List<Student> studentInformasion;
     String dateSelect;
     Button btnAddMark;
     List<AddMarks_LvView> marksLvViews;
@@ -101,7 +101,7 @@ public class AddMarksActivity extends AppCompatActivity {
 
              studentInformasion.clear();
              for (DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
-                 Student_List studentList = studentSnapshot.getValue(Student_List.class);
+                 Student studentList = studentSnapshot.getValue(Student.class);
                  studentInformasion.add(studentList);
 
                  adapter = new AddMarks_LvView_inflater(AddMarksActivity.this, studentInformasion );
@@ -119,11 +119,11 @@ public class AddMarksActivity extends AppCompatActivity {
      btnAddMark.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             List<Student_List> marksLists = adapter.getMarksLists();
+             List<Student> marksLists = adapter.getMarksLists();
              String date1 = date.getText().toString();
 
              String marktype1 = marksType.getText().toString();
-             for (Student_List student:marksLists) {
+             for (Student student:marksLists) {
                  addMark.child(course.courseName).child(date1)
                          .child(marktype1)
                          .push().setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {

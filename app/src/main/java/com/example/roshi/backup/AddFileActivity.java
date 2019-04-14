@@ -3,6 +3,7 @@ package com.example.roshi.backup;
 import android.Manifest;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
@@ -38,6 +44,7 @@ public class AddFileActivity extends AppCompatActivity {
     private String[] FileNameStrings;
     private File[] listFile;
     File file;
+    FirebaseDatabase firebaseDatabase;
 
     Button btnUpDirectory,btnSDCard;
 
@@ -48,6 +55,7 @@ public class AddFileActivity extends AppCompatActivity {
     ArrayList<XYValue> uploadData;
 
     ListView lvInternalStorage;
+    private DatabaseReference studentsRef;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -59,6 +67,7 @@ public class AddFileActivity extends AppCompatActivity {
         btnUpDirectory = (Button) findViewById(R.id.btnUpDirectory);
         btnSDCard = (Button) findViewById(R.id.btnViewSDCard);
         uploadData = new ArrayList<>();
+        studentsRef = FirebaseDatabase.getInstance().getReference().child("Students");
 
         //need to check the permissions
         checkFilePermissions();
@@ -135,6 +144,7 @@ public class AddFileActivity extends AppCompatActivity {
                 Row row = sheet.getRow(r);
                 int cellsCount = row.getPhysicalNumberOfCells();
                 //inner loop, loops through columns
+                Student student_ = new Student();
                 for (int c = 0; c < cellsCount; c++) {
                     //handles if there are to many columns on the excel sheet.
                     if(c>2){
@@ -145,9 +155,16 @@ public class AddFileActivity extends AppCompatActivity {
                         String value = getCellAsString(row, c, formulaEvaluator);
                         String cellInfo = "r:" + r + "; c:" + c + "; v:" + value;
                         Log.d(TAG, "readExcelData: Data from row: " + cellInfo);
+                        if(c==0){
+                            student_.setStName(value);
+                        }else if(c==1){
+                            student_.setStId(value);
+                        }
                         sb.append(value + ", ");
                     }
                 }
+                /*push*/
+                pushStudentToFirebaseDb(student_);
                 sb.append(":");
             }
             Log.d(TAG, "readExcelData: STRINGBUILDER: " + sb.toString());
@@ -159,6 +176,18 @@ public class AddFileActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e(TAG, "readExcelData: Error reading inputstream. " + e.getMessage() );
         }
+    }
+
+    private void pushStudentToFirebaseDb(Student student_) {
+
+
+        studentsRef.child("Cse-400").push().setValue(student_).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d(TAG, "onComplete() called with: task = [" + task + "]");
+            }
+        });
+        Log.d(TAG, "pushStudentToFirebaseDb() called with: student_ = [" + student_ + "]");
     }
 
     /**

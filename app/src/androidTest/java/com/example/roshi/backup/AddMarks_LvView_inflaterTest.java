@@ -16,7 +16,7 @@ public class AddMarks_LvView_inflaterTest extends ArrayAdapter<AddMarks_LvView>{
 
         super(context,R.layout.add_marks_list.AddMarks_LvView_inflaterTest);
         this.context = context;
-        this.studentLists = Student_List_inflater;
+        this.studentLists = Student_inflater;
 
 
     }
