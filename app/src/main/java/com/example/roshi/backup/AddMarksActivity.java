@@ -50,6 +50,7 @@ public class AddMarksActivity extends AppCompatActivity {
     List<AddMarks_LvView> marksLvViews;
 
     List<Course> courseList;
+    private AddMarks_LvView_inflater adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,7 @@ public class AddMarksActivity extends AppCompatActivity {
                  Student_List studentList = studentSnapshot.getValue(Student_List.class);
                  studentInformasion.add(studentList);
 
-                 AddMarks_LvView_inflater adapter = new AddMarks_LvView_inflater(AddMarksActivity.this, studentInformasion );
+                 adapter = new AddMarks_LvView_inflater(AddMarksActivity.this, studentInformasion );
                  lvMarksList.setAdapter(adapter);
 
              }
@@ -118,24 +119,36 @@ public class AddMarksActivity extends AppCompatActivity {
      btnAddMark.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            //String lists = lvMarksList.getAdapter().toString();
-            //String markType = marksType.getText().toString().trim();
-             //String stMarks = marks.getText().toString().trim();
-             addMark.child(course.getCourseName()).child(addMarksLvView.getDate())
-                     .child(addMarksLvView.getMarkType()).child(addMarksLvView.getStId())
-                     .push().setValue(new AddMarks_LvView()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                 @Override
-                 public void onComplete(@NonNull Task<Void> task) {
+             List<Student_List> marksLists = adapter.getMarksLists();
+             String date1 = date.getText().toString();
 
-                     if (task.isSuccessful()) {
-                         Toast.makeText(AddMarksActivity.this, "Marks add successfully", Toast.LENGTH_SHORT).show();
-                     } else {
-                         Toast.makeText(AddMarksActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+             String marktype1 = marksType.getText().toString();
+             for (Student_List student:marksLists) {
+                 addMark.child(course.courseName).child(date1)
+                         .child(marktype1)
+                         .push().setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
+                     @Override
+                     public void onComplete(@NonNull Task<Void> task) {
+
+                         if (task.isSuccessful()) {
+                             Toast.makeText(AddMarksActivity.this, "Marks add successfully", Toast.LENGTH_SHORT).show();
+                         } else {
+                             Toast.makeText(AddMarksActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                         }
 
                      }
+                 });
+             }
 
-                 }
-             });
+             finish();
+             Log.d("data", "onClick() called with: v = [" + course.courseName+ date1 + marktype1 +"]");
+
+            // Log.d(TAG, "onClick() called with: v = [" + marksLists.toString() + "]");
+             //String lists = lvMarksList.getAdapter().toString();
+            //String markType = marksType.getText().toString().trim();
+             //String stMarks = marks.getText().toString().trim();
+
 
          }
      });

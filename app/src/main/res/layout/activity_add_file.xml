@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    tools:context=".AddFileActivity"
     >
-    <EditText
-        android:id="@+id/fileName"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter student name :"
-        android:inputType="textPersonName" />
-    <Button
-        android:id="@+id/btnAddFile"
-        android:layout_width="143dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Add File" />
-    <Button
-        android:id="@+id/btnSaveFile"
-        android:layout_width="143dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Save File" />
+        android:id="@+id/relLayout"
+        >
+
+        <Button
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnUpDirectory"
+            android:text="Back"/>
+
+        <Button
+            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnViewSDCard"
+            android:text="Memory"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
 
-</LinearLayout>
+    <ListView
+        android:layout_below="@+id/relLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvInternalStorage"></ListView>
+</RelativeLayout>
