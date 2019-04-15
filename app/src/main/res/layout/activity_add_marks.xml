@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Marks type"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
     </LinearLayout>
 
     <LinearLayout

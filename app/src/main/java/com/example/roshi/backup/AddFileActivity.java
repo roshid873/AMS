@@ -45,6 +45,7 @@ public class AddFileActivity extends AppCompatActivity {
     private File[] listFile;
     File file;
     FirebaseDatabase firebaseDatabase;
+    Course course;
 
     Button btnUpDirectory,btnSDCard;
 
@@ -68,6 +69,9 @@ public class AddFileActivity extends AppCompatActivity {
         btnSDCard = (Button) findViewById(R.id.btnViewSDCard);
         uploadData = new ArrayList<>();
         studentsRef = FirebaseDatabase.getInstance().getReference().child("Students");
+        course=new Course();
+        course = (com.example.roshi.backup.Course) getIntent().getSerializableExtra("course");
+
 
         //need to check the permissions
         checkFilePermissions();
@@ -181,7 +185,7 @@ public class AddFileActivity extends AppCompatActivity {
     private void pushStudentToFirebaseDb(Student student_) {
 
 
-        studentsRef.child("Cse-400").push().setValue(student_).addOnCompleteListener(new OnCompleteListener<Void>() {
+        studentsRef.child(course.courseName).push().setValue(student_).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Log.d(TAG, "onComplete() called with: task = [" + task + "]");
@@ -206,8 +210,8 @@ public class AddFileActivity extends AppCompatActivity {
 
             //use try catch to make sure there are no "" that try to parse into doubles.
             try{
-                double x = Double.parseDouble(columns[0]);
-                double y = Double.parseDouble(columns[1]);
+                String x = (columns[0]);
+                String y = (columns[1]);
 
                 String cellInfo = "(x,y): (" + x + "," + y + ")";
                 Log.d(TAG, "ParseStringBuilder: Data from row: " + cellInfo);
@@ -229,8 +233,8 @@ public class AddFileActivity extends AppCompatActivity {
         Log.d(TAG, "printDataToLog: Printing data to log...");
 
         for(int i = 0; i< uploadData.size(); i++){
-            double x = uploadData.get(i).getX();
-            double y = uploadData.get(i).getY();
+            String x = uploadData.get(i).getX();
+            String y = uploadData.get(i).getY();
             Log.d(TAG, "printDataToLog: (x,y): (" + x + "," + y + ")");
         }
     }

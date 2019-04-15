@@ -7,6 +7,8 @@ public class Student implements Serializable {
     private String stName,stId;
     private int providedMark;
 
+    
+
     public int getProvidedMark() {
         return providedMark;
     }

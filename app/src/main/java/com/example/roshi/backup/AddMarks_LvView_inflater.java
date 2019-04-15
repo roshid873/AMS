@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
 
@@ -30,6 +33,7 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
        super(context, R.layout.add_marks_list, marksLists);
         this.context = context;
         this.marksLists = marksLists;
+
 
 
     }
@@ -55,6 +59,7 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
         stMarks.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "20")});
         stMarks.addTextChangedListener(new TextWatcher() {
 
+
             public void afterTextChanged(Editable s) {}
 
             public void beforeTextChanged(CharSequence s, int start,
@@ -68,6 +73,7 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
                     if(!s1.isEmpty())
                     studentMarksList.setProvidedMark(Integer.valueOf(s1));
                 }
+
 
             }
         });

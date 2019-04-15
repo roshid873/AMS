@@ -2,27 +2,27 @@ package com.example.roshi.backup;
 
 public class XYValue {
 
-    private double x;
-    private double y;
+    private String x;
+    private String y;
 
-    public XYValue(double x, double y) {
+    public XYValue(String x, String y) {
         this.x = x;
         this.y = y;
     }
 
-    public double getX() {
+    public String getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(String x) {
         this.x = x;
     }
 
-    public double getY() {
+    public String getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(String y) {
         this.y = y;
     }
 }

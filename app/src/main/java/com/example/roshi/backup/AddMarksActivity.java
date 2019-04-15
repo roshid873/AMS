@@ -120,7 +120,7 @@ public class AddMarksActivity extends AppCompatActivity {
          @Override
          public void onClick(View v) {
              List<Student> marksLists = adapter.getMarksLists();
-             String date1 = date.getText().toString();
+             String date1 = date.getText().toString().replace("/", "-");
 
              String marktype1 = marksType.getText().toString();
              for (Student student:marksLists) {
