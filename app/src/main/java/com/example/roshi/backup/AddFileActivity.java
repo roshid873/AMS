@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -93,6 +94,7 @@ public class AddFileActivity extends AppCompatActivity {
                     checkInternalStorage();
                     Log.d(TAG, "lvInternalStorage: " + pathHistory.get(count));
                 }
+
             }
         });
 
@@ -122,8 +124,13 @@ public class AddFileActivity extends AppCompatActivity {
                 checkInternalStorage();
             }
         });
+        Toast.makeText(AddFileActivity.this,"Click double to save file",Toast.LENGTH_SHORT).show();
+
+
 
     }
+
+
 
     /**
      *reads the excel file columns then rows. Stores data as ExcelUploadData object
@@ -171,6 +178,8 @@ public class AddFileActivity extends AppCompatActivity {
                 pushStudentToFirebaseDb(student_);
                 sb.append(":");
             }
+            Toast.makeText(AddFileActivity.this,"Data add successfully",Toast.LENGTH_SHORT).show();
+
             Log.d(TAG, "readExcelData: STRINGBUILDER: " + sb.toString());
 
             parseStringBuilder(sb);

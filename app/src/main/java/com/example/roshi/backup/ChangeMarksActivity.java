@@ -1,9 +1,12 @@
 package com.example.roshi.backup;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,12 +22,13 @@ import java.util.logging.LogManager;
 
 public class ChangeMarksActivity extends AppCompatActivity {
 
+    private static final String TAG = "ChangeMarksActivity";
     TextView textView;
     ListView listView;
     Course course;
     DatabaseReference databaseReference;
     List<AddMarks_LvView>dateDataList;
-    private ChangeMatksAdapter adaptar;
+
 
 
     @Override
@@ -47,16 +51,30 @@ public class ChangeMarksActivity extends AppCompatActivity {
 
                     AddMarks_LvView list = date.getValue(AddMarks_LvView.class);
                     dateDataList.add(list);
-                    adaptar=new ChangeMatksAdapter(ChangeMarksActivity.this,dateDataList);
-                    listView.setAdapter(adaptar);
+                    ChangeMatksAdapter adapter =new ChangeMatksAdapter(ChangeMarksActivity.this,dateDataList);
+                    listView.setAdapter(adapter);
+
+
                 }
+
+                Log.d("data", "onDataChange() called with: v = [" + dateDataList + "]");
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
 
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ChangeMarksActivity.this,UpdateMarksActivity.class);
+                intent.putExtra("Date", dateDataList.get(position));
+                intent.putExtra("course",course);
+                startActivity(intent);
+            }
         });
 
     }

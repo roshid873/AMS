@@ -41,11 +41,8 @@ public class ChangeMatksAdapter  extends ArrayAdapter<AddMarks_LvView> {
 
         TextView marksDate = dateListItem.findViewById(R.id.dates);
 
-        final AddMarks_LvView dateOfMarks= dateLists.get(position);
-        if (dateOfMarks.getDate() != null) {
-           String setDate=dateOfMarks.getDate();
-           marksDate.setText(setDate);
-        }
+        AddMarks_LvView dateOfMarks= dateLists.get(position);
+
 
        marksDate.setText(dateOfMarks.getDate());
 
