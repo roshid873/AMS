@@ -66,8 +66,8 @@ public class AddMarksActivity extends AppCompatActivity {
         addMark = FirebaseDatabase.getInstance().getReference("Marks");
         studentInformasion = new ArrayList<>();
         marksLvViews = new ArrayList<>();
-        course = new Course();
         addMarksLvView = new AddMarks_LvView();
+        course = new Course();
         course = (Course) getIntent().getSerializableExtra("course");
         courseList = new ArrayList<>();
 
@@ -144,10 +144,7 @@ public class AddMarksActivity extends AppCompatActivity {
              finish();
              Log.d("data", "onClick() called with: v = [" + course.courseName+ date1 + marktype1 +"]");
 
-            // Log.d(TAG, "onClick() called with: v = [" + marksLists.toString() + "]");
-             //String lists = lvMarksList.getAdapter().toString();
-            //String markType = marksType.getText().toString().trim();
-             //String stMarks = marks.getText().toString().trim();
+
 
 
          }

@@ -54,5 +54,15 @@ public class OptionDialogeActivity extends AppCompatActivity {
             }
         });
 
+        btnChangeMarks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OptionDialogeActivity.this,ChangeMarksActivity.class);
+                intent.putExtra("course",course);
+                startActivity(intent);
+
+            }
+        });
+
     }
 }
