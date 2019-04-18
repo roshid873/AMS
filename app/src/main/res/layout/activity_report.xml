@@ -6,18 +6,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginLeft="20dp"
-    tools:context=".ChangeMarksActivity">
+    tools:context=".ReportActivity">
 
     <TextView
-        android:id="@+id/tvdate"
+        android:id="@+id/tvReportDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date:"
         android:textSize="30sp" />
 
     <ListView
-        android:id="@+id/lvDateList"
+        android:id="@+id/lvReportDateList"
         android:layout_width="match_parent"
         android:layout_marginTop="15dp"
         android:layout_height="match_parent" />
+
 </LinearLayout>

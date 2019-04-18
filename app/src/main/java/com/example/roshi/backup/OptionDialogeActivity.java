@@ -64,5 +64,15 @@ public class OptionDialogeActivity extends AppCompatActivity {
             }
         });
 
+        btnReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OptionDialogeActivity.this,ReportActivity.class);
+                intent.putExtra("course",course);
+                startActivity(intent);
+
+            }
+        });
+
     }
 }

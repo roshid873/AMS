@@ -56,7 +56,7 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
         stId.setText(studentMarksList.getStId());
         //stMarks.setText(studentMarksList.getStMarks());
 
-        stMarks.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "20")});
+        stMarks.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "20")});
         stMarks.addTextChangedListener(new TextWatcher() {
 
 

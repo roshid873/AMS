@@ -5,6 +5,10 @@ public class AddMarks_LvView implements Serializable {
     private String stId,stMarks,markType,date;
 
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public AddMarks_LvView(String stId, String stMarks, String markType, String date) {
         this.stId = stId;
         this.stMarks = stMarks;

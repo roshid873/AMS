@@ -18,27 +18,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.LogManager;
 
-public class ChangeMarksActivity extends AppCompatActivity {
-
-    private static final String TAG = "ChangeMarksActivity";
+public class ReportActivity extends AppCompatActivity {
+    private static final String TAG = "ReportActivity";
     TextView textView;
     ListView listView;
     Course course;
     DatabaseReference databaseReference;
-    List<AddMarks_LvView>dateDataList;
+    List<AddMarks_LvView> dateDataList;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_marks);
+        setContentView(R.layout.activity_report);
         databaseReference= FirebaseDatabase.getInstance().getReference("Marks");
 
-        textView=findViewById(R.id.tvdate);
-        listView=findViewById(R.id.lvDateList);
+        textView=findViewById(R.id.tvReportDate);
+        listView=findViewById(R.id.lvReportDateList);
         course = new Course();
         course = (Course) getIntent().getSerializableExtra("course");
 
@@ -53,7 +51,7 @@ public class ChangeMarksActivity extends AppCompatActivity {
                     AddMarks_LvView list = new AddMarks_LvView();
                     list.setDate(date.getKey());
                     dateDataList.add(list);
-                    ChangeMatksAdapter adapter =new ChangeMatksAdapter(ChangeMarksActivity.this,dateDataList);
+                    ReportAdapter adapter =new ReportAdapter(ReportActivity.this,dateDataList);
                     listView.setAdapter(adapter);
                 }
 
@@ -70,7 +68,7 @@ public class ChangeMarksActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ChangeMarksActivity.this,UpdateMarksActivity.class);
+                Intent intent = new Intent(ReportActivity.this,ReportMarksActivity.class);
                 intent.putExtra("Date", dateDataList.get(position));
                 intent.putExtra("course",course);
                 startActivity(intent);
