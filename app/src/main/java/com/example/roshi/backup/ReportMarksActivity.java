@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ReportMarksActivity extends AppCompatActivity {
 
-    TextView reportMarksDate,reportMarksStudenId,reportMarksMark,reportMarksType;
+    TextView reportMarksDate,reportMarksStudenId,reportMarksMark,reportMarksType,courseView;
     ListView reportMarksListView;
     List<Student> reportListview;
 
@@ -33,6 +33,7 @@ public class ReportMarksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_marks);
+        courseView=findViewById(R.id.tvReportMarksCourseView);
         reportMarksDate=findViewById(R.id.tvReportMarksDate);
         reportMarksStudenId=findViewById(R.id.tvReportMarksStudenId);
         reportMarksMark=findViewById(R.id.tvReportMarksMarks);
@@ -45,6 +46,8 @@ public class ReportMarksActivity extends AppCompatActivity {
         course = (Course) getIntent().getSerializableExtra("course");
         databaseReference= FirebaseDatabase.getInstance().getReference("Marks");
         reportMarksDate.setText(dates.getDate());
+        courseView.setText(course.courseName);
+
 
         databaseReference.child(course.courseName).child(dates.date).addValueEventListener(new ValueEventListener() {
             @Override

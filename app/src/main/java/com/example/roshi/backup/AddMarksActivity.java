@@ -40,7 +40,7 @@ public class AddMarksActivity extends AppCompatActivity {
     EditText marksType,marks;
     DatabaseReference databaseStudentsId;
     ListView lvMarksList;
-    TextView date;
+    TextView date,courseView;
     DatabaseReference addMark;
     Course course;
 
@@ -63,7 +63,7 @@ public class AddMarksActivity extends AppCompatActivity {
         date = findViewById(R.id.tvDate);
         marks = findViewById(R.id.etmarks);
         btnAddMark = findViewById(R.id.addMarkBt);
-
+        courseView=findViewById(R.id.tvAddMarksCourseView);
         databaseStudentsId = FirebaseDatabase.getInstance().getReference("Students");
         addMark = FirebaseDatabase.getInstance().getReference("Marks");
         studentInformasion = new ArrayList<>();
@@ -71,6 +71,7 @@ public class AddMarksActivity extends AppCompatActivity {
         addMarksLvView = new AddMarks_LvView();
         course = new Course();
         course = (Course) getIntent().getSerializableExtra("course");
+        courseView.setText(course.courseName);
         courseList = new ArrayList<>();
 
         date.setOnClickListener(new View.OnClickListener() {

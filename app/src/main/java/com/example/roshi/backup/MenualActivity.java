@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +22,7 @@ public class MenualActivity extends AppCompatActivity {
 
     EditText manualName,manualId;
     Button btnAdd;
+    TextView courseView;
 
     Course course;
        private DatabaseReference databaseStudents;
@@ -31,11 +33,13 @@ public class MenualActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menual);
         databaseStudents = FirebaseDatabase.getInstance().getReference("Students");
+        courseView=findViewById(R.id.tvMenualCourseView);
         manualName=findViewById(R.id.etManualName);
         manualId=findViewById(R.id.etManualId);
         student__inflater = new ArrayList<>();
         btnAdd=findViewById(R.id.btManualAdd);
         course = (Course) getIntent().getSerializableExtra("course");
+        courseView.setText(course.courseName);
 
        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

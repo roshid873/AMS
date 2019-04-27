@@ -4,31 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".MenualActivity">
 
-
-    <EditText
-        android:id="@+id/etManualName"
+    <TextView
+        android:id="@+id/tvMenualCourseView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter student name :"
-        android:inputType="textPersonName" />
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        tools:text="Course Name" />
 
-    <EditText
-        android:id="@+id/etManualId"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter student Id :"
-        android:inputType="textPersonName" />
+        android:layout_marginTop="170dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btManualAdd"
-        android:layout_width="143dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Add" />
+        <EditText
+            android:id="@+id/etManualName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter student name :"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etManualId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter student Id :"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btManualAdd"
+            android:layout_width="143dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Add" />
+
+    </LinearLayout>
+
+
+
 </LinearLayout>

@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 public class UpdateMarksActivity extends AppCompatActivity {
-    TextView updateDate,updateStudenId,updateMarks;
+    TextView updateDate,updateStudenId,updateMarks,courseView;
     EditText updateMarksType;
     ListView updateListView;
     Button button;
@@ -35,6 +35,7 @@ public class UpdateMarksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_marks);
+        courseView=findViewById(R.id.tvUpdateMarksCourseView);
         updateDate=findViewById(R.id.tvUpdateDate);
         updateStudenId=findViewById(R.id.tvUpdateStudenId);
         updateMarks=findViewById(R.id.tvUpdateMarks);
@@ -48,7 +49,7 @@ public class UpdateMarksActivity extends AppCompatActivity {
         marksListview=new ArrayList<>();
         databaseReference= FirebaseDatabase.getInstance().getReference("Marks");
         updateDate.setText(dates.getDate());
-
+        courseView.setText(course.courseName);
 
 
        databaseReference.child(course.courseName).child(dates.date).addValueEventListener(new ValueEventListener() {

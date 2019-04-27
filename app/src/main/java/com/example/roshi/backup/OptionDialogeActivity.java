@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class OptionDialogeActivity extends AppCompatActivity {
 
     Button btnAddStudent,btnAddMrks,btnChangeMarks,btnReport,btnDelate;
-
+    TextView courseView;
     Course course;
     List<Course> courseList;
     Student studentList;
@@ -25,8 +26,7 @@ public class OptionDialogeActivity extends AppCompatActivity {
         studentList = new Student();
         course = (Course) getIntent().getSerializableExtra("course");
         studentList = (Student) getIntent().getSerializableExtra("stId");
-
-
+        courseView=findViewById(R.id.tvOptionCourseView);
         btnAddStudent = findViewById(R.id.btAddStudent);
         btnAddMrks = findViewById(R.id.btAddMark);
         btnChangeMarks = findViewById(R.id.btChangeMark);
@@ -34,6 +34,7 @@ public class OptionDialogeActivity extends AppCompatActivity {
         btnDelate = findViewById(R.id.btDelate);
 
         courseList = new ArrayList<>();
+        courseView.setText(course.courseName);
 
         btnAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override

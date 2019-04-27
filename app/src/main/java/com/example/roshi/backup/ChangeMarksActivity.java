@@ -21,9 +21,7 @@ import java.util.List;
 import java.util.logging.LogManager;
 
 public class ChangeMarksActivity extends AppCompatActivity {
-
-    private static final String TAG = "ChangeMarksActivity";
-    TextView textView;
+    TextView textView,courseView;
     ListView listView;
     Course course;
 
@@ -38,12 +36,12 @@ public class ChangeMarksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_marks);
         databaseReference= FirebaseDatabase.getInstance().getReference("Marks");
-
+        courseView=findViewById(R.id.tvChangeMarksCourseView);
         textView=findViewById(R.id.tvdate);
         listView=findViewById(R.id.lvDateList);
         course = new Course();
         course = (Course) getIntent().getSerializableExtra("course");
-
+        courseView.setText(course.courseName);
         dateDataList = new ArrayList<>();
         databaseReference.child(course.getCourseName()).addValueEventListener(new ValueEventListener() {
             @Override

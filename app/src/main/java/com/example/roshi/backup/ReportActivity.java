@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
     private static final String TAG = "ReportActivity";
-    TextView textView;
+    TextView textView,courseView;
     ListView listView;
     Course course;
     DatabaseReference databaseReference;
@@ -34,12 +34,12 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
         databaseReference= FirebaseDatabase.getInstance().getReference("Marks");
-
+        courseView=findViewById(R.id.tvReportCourseView);
         textView=findViewById(R.id.tvReportDate);
         listView=findViewById(R.id.lvReportDateList);
         course = new Course();
         course = (Course) getIntent().getSerializableExtra("course");
-
+        courseView.setText(course.courseName);
         dateDataList = new ArrayList<>();
         databaseReference.child(course.getCourseName()).addValueEventListener(new ValueEventListener() {
             @Override

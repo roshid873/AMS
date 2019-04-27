@@ -47,7 +47,7 @@ public class AddFileActivity extends AppCompatActivity {
     File file;
     FirebaseDatabase firebaseDatabase;
     Course course;
-
+    TextView courseView;
     Button btnUpDirectory,btnSDCard;
 
     ArrayList<String> pathHistory;
@@ -65,6 +65,7 @@ public class AddFileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_file);
+        courseView=findViewById(R.id.tvAddFileCourseView);
         lvInternalStorage = (ListView) findViewById(R.id.lvInternalStorage);
         btnUpDirectory = (Button) findViewById(R.id.btnUpDirectory);
         btnSDCard = (Button) findViewById(R.id.btnViewSDCard);
@@ -72,6 +73,7 @@ public class AddFileActivity extends AppCompatActivity {
         studentsRef = FirebaseDatabase.getInstance().getReference().child("Students");
         course=new Course();
         course = (com.example.roshi.backup.Course) getIntent().getSerializableExtra("course");
+        courseView.setText(course.courseName);
 
 
         //need to check the permissions

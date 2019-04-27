@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 public class AddStudentActivity extends AppCompatActivity {
 
     Button btnManual,btnFile;
-    TextView tvStName,tvStId;
+    TextView tvStName,tvStId,courseView;
     ListView lvStList;
     DatabaseReference databaseStudents;
     List<Student> Student_inflater;
@@ -37,19 +37,19 @@ public class AddStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_student);
-
-       btnManual = findViewById(R.id.ad_st_bt1);
+        courseView=findViewById(R.id.tvAddStudentCourseView);
+        btnManual = findViewById(R.id.ad_st_bt1);
         btnFile=findViewById(R.id.ad_st_bt2);
         databaseStudents = FirebaseDatabase.getInstance().getReference("Students");
         tvStName=findViewById(R.id.ad_st_tv1);
         tvStId=findViewById(R.id.ad_st_tv2);
 
-        //pass data
+
         course = new Course();
         studentList = new Student();
         course = (Course) getIntent().getSerializableExtra("course");
 
-
+        courseView.setText(course.courseName);
         Student_inflater = new ArrayList<>();
         courseList = new ArrayList<>();
 
