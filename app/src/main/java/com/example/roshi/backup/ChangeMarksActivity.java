@@ -26,6 +26,8 @@ public class ChangeMarksActivity extends AppCompatActivity {
     TextView textView;
     ListView listView;
     Course course;
+
+
     DatabaseReference databaseReference;
     List<AddMarks_LvView>dateDataList;
 
@@ -49,7 +51,7 @@ public class ChangeMarksActivity extends AppCompatActivity {
 
                 dateDataList.clear();
                 for (DataSnapshot date : dataSnapshot.getChildren()){
-                    Log.v("testData", date.getKey().toString());
+                    Log.e("gygh",date.getChildren().toString());
                     AddMarks_LvView list = new AddMarks_LvView();
                     list.setDate(date.getKey());
                     dateDataList.add(list);
@@ -71,7 +73,7 @@ public class ChangeMarksActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ChangeMarksActivity.this,UpdateMarksActivity.class);
-                intent.putExtra("Date", dateDataList.get(position));
+                intent.putExtra("date", dateDataList.get(position));
                 intent.putExtra("course",course);
                 startActivity(intent);
 

@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -95,6 +97,26 @@ public class AddMarksActivity extends AppCompatActivity {
             }
         };
 
+        marksType.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.v("MarktypeInput", "beforeTextChanged: " + s.toString());
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.v("MarktypeInput", "onTextChanged: " + s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.v("MarktypeInput", "afterTextChanged: " + s.toString());
+                adapter.setMarkType(s.toString());
+                adapter.notifyDataSetChanged();
+            }
+        });
+
      databaseStudentsId.child(course.getCourseName()).addValueEventListener(new ValueEventListener() {
          @Override
          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -104,7 +126,7 @@ public class AddMarksActivity extends AppCompatActivity {
                  Student studentList = studentSnapshot.getValue(Student.class);
                  studentInformasion.add(studentList);
 
-                 adapter = new AddMarks_LvView_inflater(AddMarksActivity.this, studentInformasion );
+                 adapter = new AddMarks_LvView_inflater(AddMarksActivity.this, studentInformasion, "0" );
                  lvMarksList.setAdapter(adapter);
 
              }
@@ -132,7 +154,8 @@ public class AddMarksActivity extends AppCompatActivity {
 
                          if (task.isSuccessful()) {
                              Toast.makeText(AddMarksActivity.this, "Marks add successfully", Toast.LENGTH_SHORT).show();
-                         } else {
+                         }
+                         else {
                              Toast.makeText(AddMarksActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                          }

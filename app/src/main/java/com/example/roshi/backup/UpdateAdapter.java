@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,52 +17,38 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-import static android.support.constraint.Constraints.TAG;
-
-public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
-
-
+public class UpdateAdapter extends ArrayAdapter<Student> {
     private Activity context;
-    private List<Student>marksLists;
-    Student studentList;
-    DatabaseReference databaseStudents;
+    private List<Student>updateMarksList;
+    DatabaseReference databaseReference;
 
-    private String markType;
+    public UpdateAdapter(Activity context, List<Student>updateMarksList){
 
-    public void setMarkType(String markType) {
-        this.markType = markType;
-    }
-
-    public AddMarks_LvView_inflater(Activity context, List<Student> marksLists, String markType){
-
-       super(context, R.layout.add_marks_list, marksLists);
-        this.context = context;
-        this.marksLists = marksLists;
-        this.markType = markType;
-
-
+        super(context,R.layout.add_marks_list,updateMarksList);
+        this.context=context;
+        this.updateMarksList=updateMarksList;
 
     }
+
     @NonNull
     @Override
-    public View getView(int position, View convertView,  ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = context.getLayoutInflater();
         View stMarksViewItem = inflater.inflate(R.layout.add_marks_list,null,true);
-        databaseStudents = FirebaseDatabase.getInstance().getReference("Students");
-
+        databaseReference = FirebaseDatabase.getInstance().getReference("Marks");
 
 
         TextView stId = stMarksViewItem.findViewById(R.id.tvId);
         EditText stMarks= stMarksViewItem.findViewById(R.id.etmarks);
 
-        final Student studentMarksList = marksLists.get(position);
+        final Student studentMarksList = updateMarksList.get(position);
 
 
         stId.setText(studentMarksList.getStId());
-        //stMarks.setText(studentMarksList.getStMarks());
+        stMarks.setText(String.valueOf(studentMarksList.getProvidedMark()));
 
-        stMarks.setFilters(new InputFilter[]{ new InputFilterMinMax("0", markType)});
+        stMarks.setFilters(new InputFilter[]{ new InputFilterMinMax("0", "20")});
         stMarks.addTextChangedListener(new TextWatcher() {
 
 
@@ -78,7 +63,7 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
                 if (s != null) {
                     String s1 = s.toString();
                     if(!s1.isEmpty())
-                    studentMarksList.setProvidedMark(Integer.valueOf(s1));
+                        studentMarksList.setProvidedMark(Integer.valueOf(s1));
                 }
 
 
@@ -89,6 +74,8 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
     }
 
     public List<Student> getMarksLists() {
-        return marksLists;
+        return updateMarksList;
     }
+
+
 }

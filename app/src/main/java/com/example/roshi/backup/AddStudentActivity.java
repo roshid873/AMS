@@ -45,9 +45,9 @@ public class AddStudentActivity extends AppCompatActivity {
         tvStId=findViewById(R.id.ad_st_tv2);
 
         //pass data
-        course = new com.example.roshi.backup.Course();
-        studentList = new com.example.roshi.backup.Student();
-        course = (com.example.roshi.backup.Course) getIntent().getSerializableExtra("course");
+        course = new Course();
+        studentList = new Student();
+        course = (Course) getIntent().getSerializableExtra("course");
 
 
         Student_inflater = new ArrayList<>();
@@ -72,10 +72,10 @@ public class AddStudentActivity extends AppCompatActivity {
                 Student_inflater.clear();
 
                 for(DataSnapshot studentSnapshot : dataSnapshot.getChildren()){
-                    com.example.roshi.backup.Student Student = studentSnapshot.getValue(com.example.roshi.backup.Student.class);
+                    Student Student = studentSnapshot.getValue(Student.class);
                     Student_inflater.add(Student);
 
-                    com.example.roshi.backup.Student_inflater adapter = new com.example.roshi.backup.Student_inflater(AddStudentActivity.this, Student_inflater);
+                    Student_inflater adapter = new Student_inflater(AddStudentActivity.this, Student_inflater);
                     lvStList.setAdapter(adapter);
 
                 }

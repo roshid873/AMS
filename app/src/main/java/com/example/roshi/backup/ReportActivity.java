@@ -47,7 +47,6 @@ public class ReportActivity extends AppCompatActivity {
 
                 dateDataList.clear();
                 for (DataSnapshot date : dataSnapshot.getChildren()){
-                    Log.v("testData", date.getKey().toString());
                     AddMarks_LvView list = new AddMarks_LvView();
                     list.setDate(date.getKey());
                     dateDataList.add(list);
@@ -55,7 +54,6 @@ public class ReportActivity extends AppCompatActivity {
                     listView.setAdapter(adapter);
                 }
 
-                Log.d("testData", "onDataChange() called with: v = [" + dateDataList + "]");
             }
 
 
@@ -69,7 +67,7 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ReportActivity.this,ReportMarksActivity.class);
-                intent.putExtra("Date", dateDataList.get(position));
+                intent.putExtra("date", dateDataList.get(position));
                 intent.putExtra("course",course);
                 startActivity(intent);
 
