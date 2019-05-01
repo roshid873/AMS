@@ -54,8 +54,10 @@ import java.util.List;
             }
         });
          databaseCourse.addChildEventListener(new ChildEventListener() {
-             @Override
 
+
+
+             @Override
              public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                  Course course = dataSnapshot.getValue(Course.class);
                  courseList.add(course);
@@ -100,8 +102,10 @@ import java.util.List;
 
             String courseName = etCourseName.getText().toString().trim();
             if(!TextUtils.isEmpty(courseName)){
-                Course course = new Course(courseName);
-                databaseCourse.push().setValue(course);
+
+                String id = databaseCourse.push().getKey();
+                Course course = new Course(courseName,id);
+                databaseCourse.child(id).setValue(course);
                 Toast.makeText(MainActivity.this, "Data Added Successfully", Toast.LENGTH_LONG).show();
 
             }

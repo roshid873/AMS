@@ -13,7 +13,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +35,7 @@ public class UpdateMarksActivity extends AppCompatActivity {
     TextView updateDate,updateStudenId,updateMarks,courseView;
     EditText updateMarksType;
     ListView updateListView;
-    Button button;
+    Button upButton;
     Course course;
     AddMarks_LvView dates;
     DatabaseReference databaseReference;
@@ -50,7 +53,7 @@ public class UpdateMarksActivity extends AppCompatActivity {
         updateMarks=findViewById(R.id.tvUpdateMarks);
         updateMarksType=findViewById(R.id.etUpdateMarkType);
         updateListView=findViewById(R.id.updateListView);
-        button=findViewById(R.id.btnUpdate);
+        upButton=findViewById(R.id.btnUpdate);
         dates = new AddMarks_LvView();
         dates = (AddMarks_LvView) getIntent().getSerializableExtra("date");
         course = new Course();
@@ -82,9 +85,9 @@ public class UpdateMarksActivity extends AppCompatActivity {
                 Log.d(TAG,"onDateSet : date : "+i + "/" + (i1+1) +"/" + i2);
                 dateSelect = (i1+1)+ "/" + i2 + "/" + i;
                 updateDate.setText(dateSelect);
+
             }
         };
-
 
        databaseReference.child(course.courseName).child(dates.date).addValueEventListener(new ValueEventListener() {
            @Override
@@ -120,6 +123,39 @@ public class UpdateMarksActivity extends AppCompatActivity {
            }
        });
 
+
+        upButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        List<Student> marksLists = adapter.getMarksLists();
+       String date1 = updateDate.getText().toString().replace("/","-");
+        databaseReference.child(course.courseName).setValue(date1).toString();
+
+        databaseReference.child(course.courseName).child(dateSelect).setValue(updateMarksType.getText().toString());
+
+
+        for (Student student : marksLists){
+
+
+            databaseReference.child(course.courseName).child(date1).child(String.valueOf(updateMarksType)).setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+
+                        Toast.makeText(UpdateMarksActivity.this, "Marks add successfully", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else {
+
+                        Toast.makeText(UpdateMarksActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+        }
+
+    }
+});
 
 
     }
