@@ -25,7 +25,6 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
 
     private Activity context;
     private List<Student>marksLists;
-    Student studentList;
     DatabaseReference databaseStudents;
 
     private String markType;
@@ -61,7 +60,6 @@ public class AddMarks_LvView_inflater extends ArrayAdapter<Student> {
 
 
         stId.setText(studentMarksList.getStId());
-        //stMarks.setText(studentMarksList.getStMarks());
 
         stMarks.setFilters(new InputFilter[]{ new InputFilterMinMax("0", markType)});
         stMarks.addTextChangedListener(new TextWatcher() {

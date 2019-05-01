@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -58,21 +59,26 @@ public class AddMarksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_marks);
+        
         marksType = findViewById(R.id.etMarkType);
         lvMarksList = findViewById(R.id.ad_mrk_lv1);
         date = findViewById(R.id.tvDate);
         marks = findViewById(R.id.etmarks);
         btnAddMark = findViewById(R.id.addMarkBt);
         courseView=findViewById(R.id.tvAddMarksCourseView);
+
         databaseStudentsId = FirebaseDatabase.getInstance().getReference("Students");
         addMark = FirebaseDatabase.getInstance().getReference("Marks");
+
+        course = new Course();
+        course = (Course) getIntent().getSerializableExtra("course");
+
         studentInformasion = new ArrayList<>();
         marksLvViews = new ArrayList<>();
         addMarksLvView = new AddMarks_LvView();
-        course = new Course();
-        course = (Course) getIntent().getSerializableExtra("course");
-        courseView.setText(course.courseName);
         courseList = new ArrayList<>();
+
+        courseView.setText(course.courseName);
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,9 +95,11 @@ public class AddMarksActivity extends AppCompatActivity {
             }
         });
 
+
         tvDate = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
                 Log.d(TAG,"onDateSet : date : "+i + "/" + (i1+1) +"/" + i2);
                 dateSelect = (i1+1)+ "/" + i2 + "/" + i;
                 date.setText(dateSelect);
@@ -99,6 +107,7 @@ public class AddMarksActivity extends AppCompatActivity {
         };
 
         marksType.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.v("MarktypeInput", "beforeTextChanged: " + s.toString());
@@ -115,14 +124,18 @@ public class AddMarksActivity extends AppCompatActivity {
                 Log.v("MarktypeInput", "afterTextChanged: " + s.toString());
                 adapter.setMarkType(s.toString());
                 adapter.notifyDataSetChanged();
+
             }
         });
 
-     databaseStudentsId.child(course.getCourseName()).addValueEventListener(new ValueEventListener() {
-         @Override
-         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+        databaseStudentsId.child(course.getCourseName()).addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
              studentInformasion.clear();
+
              for (DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
                  Student studentList = studentSnapshot.getValue(Student.class);
                  studentInformasion.add(studentList);
@@ -133,46 +146,57 @@ public class AddMarksActivity extends AppCompatActivity {
              }
          }
 
+
          @Override
          public void onCancelled(@NonNull DatabaseError databaseError) {
 
-         }
-     });
+
+            }
+
+        });
+
 
      btnAddMark.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+
              List<Student> marksLists = adapter.getMarksLists();
              String date1 = date.getText().toString().replace("/", "-");
-
              String marktype1 = marksType.getText().toString();
-             for (Student student:marksLists) {
+
+             for (Student student : marksLists) {
+
                  addMark.child(course.courseName).child(date1)
-                         .child(marktype1)
-                         .push().setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
-                     @Override
-                     public void onComplete(@NonNull Task<Void> task) {
+                         .child(marktype1).push().setValue(student)
+                         .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                     @Override
+                                     public void onComplete(@NonNull Task<Void> task) {
 
-                         if (task.isSuccessful()) {
-                             Toast.makeText(AddMarksActivity.this, "Marks add successfully", Toast.LENGTH_SHORT).show();
-                         }
-                         else {
-                             Toast.makeText(AddMarksActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                         if (task.isSuccessful()) {
 
-                         }
+                                             Toast.makeText(AddMarksActivity.this, "Marks add successfully", Toast.LENGTH_SHORT).show();
 
-                     }
-                 });
+                                         }
+                                         else {
+
+                                             Toast.makeText(AddMarksActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                         }
+
+                                     }
+
+                         });
+
              }
 
+
              finish();
-             Log.d("data", "onClick() called with: v = [" + course.courseName+ date1 + marktype1 +"]");
-
-
-
+             Log.d("data", "onClick() called with: v = [" + course.courseName + date1 + marktype1 + "]");
 
          }
+
      });
+
 
     }
 

@@ -22,6 +22,9 @@ public class UpdateAdapter extends ArrayAdapter<Student> {
     private List<Student>updateMarksList;
     DatabaseReference databaseReference;
 
+
+
+
     public UpdateAdapter(Activity context, List<Student>updateMarksList){
 
         super(context,R.layout.add_marks_list,updateMarksList);

@@ -1,10 +1,15 @@
 package com.example.roshi.backup;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,10 +21,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class UpdateMarksActivity extends AppCompatActivity {
+    private static final String TAG ="UpdateMarksActivity";
+    private DatePickerDialog.OnDateSetListener tvDate;
+    String dateSelect;
     TextView updateDate,updateStudenId,updateMarks,courseView;
     EditText updateMarksType;
     ListView updateListView;
@@ -51,11 +60,36 @@ public class UpdateMarksActivity extends AppCompatActivity {
         updateDate.setText(dates.getDate());
         courseView.setText(course.courseName);
 
+        updateDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(UpdateMarksActivity.this,
+                        android.R.style.Theme_DeviceDefault,tvDate,year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+                dialog.show();
+            }
+        });
+
+        tvDate = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+                Log.d(TAG,"onDateSet : date : "+i + "/" + (i1+1) +"/" + i2);
+                dateSelect = (i1+1)+ "/" + i2 + "/" + i;
+                updateDate.setText(dateSelect);
+            }
+        };
+
 
        databaseReference.child(course.courseName).child(dates.date).addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-              
+
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()){
 
                     updateMarksType.setText(snapshot.getKey());
@@ -85,27 +119,6 @@ public class UpdateMarksActivity extends AppCompatActivity {
 
            }
        });
-
-//        databaseReference.child(course.courseName).child(dates.date).child(marksDatabase.getMarkType()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                marksListview.clear();
-//                for (DataSnapshot studentSnapshot : dataSnapshot.getChildren()){
-//                    Student studentList=studentSnapshot.getValue(Student.class);
-//                    marksListview.add(studentList);
-//                    adapter=new UpdateAdapter(UpdateMarksActivity.this,marksListview);
-//                    updateListView.setAdapter(adapter);
-//                    AddMarks_LvView updateMarksType = new AddMarks_LvView();
-//                    updateMarksType.setMarkType(dates.getMarkType());
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
 
 
 
