@@ -130,14 +130,14 @@ public class UpdateMarksActivity extends AppCompatActivity {
         List<Student> marksLists = adapter.getMarksLists();
        String date1 = updateDate.getText().toString().replace("/","-");
         databaseReference.child(course.courseName).setValue(date1).toString();
-
-        databaseReference.child(course.courseName).child(dateSelect).setValue(updateMarksType.getText().toString());
-
-
-        for (Student student : marksLists){
+        String marksType1 = updateMarksType.getText().toString().trim();
+       databaseReference.child(course.courseName).child(date1).setValue(marksType1);
 
 
-            databaseReference.child(course.courseName).child(date1).child(String.valueOf(updateMarksType)).setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
+        for (int i = 0; i<= marksLists.size();i++){
+
+
+            databaseReference.child(course.courseName).child(date1).child(marksType1).setValue(marksLists).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
