@@ -45,7 +45,7 @@
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Marks type"
+            android:hint="Enter Marks Type"
             android:inputType="number" />
     </LinearLayout>
 

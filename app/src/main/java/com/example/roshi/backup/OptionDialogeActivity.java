@@ -31,9 +31,6 @@ public class OptionDialogeActivity extends AppCompatActivity {
         course = new Course();
         studentList = new Student();
         course = (Course) getIntent().getSerializableExtra("course");
-        /*course name add korte hobe as child of reference otherwise remove korte parba na
-        ekon j obostai ache delete kora jabe na shakil k ami kore diyechilam . or code deke kaj kore nao . ami ajk onek busy tomake r help korte parchina
-        **/
         studentList = (Student) getIntent().getSerializableExtra("stId");
         courseView=findViewById(R.id.tvOptionCourseView);
         btnAddStudent = findViewById(R.id.btAddStudent);
@@ -50,7 +47,7 @@ public class OptionDialogeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 deleteCourses(course.getCourseId());
-                Toast.makeText(OptionDialogeActivity.this,"Course Delete Successfully",Toast.LENGTH_SHORT).show();
+                Toast.makeText(OptionDialogeActivity.this,"Course Delete Successfully",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(OptionDialogeActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();

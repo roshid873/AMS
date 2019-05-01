@@ -1,6 +1,7 @@
 package com.example.roshi.backup;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -142,7 +143,7 @@ public class UpdateMarksActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
 
-                        Toast.makeText(UpdateMarksActivity.this, "Marks add successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateMarksActivity.this, "Marks Update successfully", Toast.LENGTH_LONG).show();
 
                     }
                     else {
@@ -153,8 +154,14 @@ public class UpdateMarksActivity extends AppCompatActivity {
                 }
             });
         }
+        Intent intent = new Intent(UpdateMarksActivity.this,OptionDialogeActivity.class);
+        startActivity(intent);
+        finish();
 
     }
+
+
+
 });
 
 
